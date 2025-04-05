@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'irb'
-require_relative '../lib/client_verse/client'
+require_relative '../app'
+
+App.boot!
 
 IRB.start

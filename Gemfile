@@ -2,4 +2,12 @@
 
 source "https://rubygems.org"
 
-gem "rspec"
+gem "thor"
+
+group :development, :test do
+  gem "rspec"
+end
+
+group :development do
+  gem "yard"
+end

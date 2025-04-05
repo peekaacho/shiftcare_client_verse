@@ -15,12 +15,16 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.2)
+    thor (1.3.2)
+    yard (0.9.37)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
   rspec
+  thor
+  yard
 
 BUNDLED WITH
    2.3.7
