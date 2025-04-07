@@ -12,14 +12,7 @@ describe ClientVerse::Clients::Search do
   subject { described_class.new(clients) }
 
   describe "#call" do
-    context "query string option is blank" do
-      it "returns all the clients" do
-        expect(subject.call.count).to eq(clients.count)
-        expect(subject.call('q' => '').count).to eq(clients.count)
-      end
-    end
-
-    context "query string option is specified" do
+    context "query string is specified" do
       it "returns the clients with full_name partially matching the query string" do
         result = subject.call('q' => 'Wil')
         expect(result.count).to eq(3)
@@ -28,6 +21,29 @@ describe ClientVerse::Clients::Search do
         expect(matched_names).to include('James Wilson')
         expect(matched_names).to include('Michael Williams')
         expect(matched_names).to include('William Davis')
+      end
+
+      context "no client found with full_name partially matching the query string" do
+        it "returns nothing" do
+          result = subject.call('q' => 'Karen')
+          expect(result).to be_empty
+        end
+      end
+    end
+
+    context "email is specified" do
+      it "returns the clients with the given email" do
+        email = 'jane.smith@yahoo.com'
+        result = subject.call('email' => email)
+        expect(result.count).to eq(2)
+        result.each {|c| expect(c.email). to (eq(email)) }
+      end
+
+      context "no client found with the given email" do
+        it "returns nothing" do
+          result = subject.call('email' => 'none@gmail.com')
+          expect(result).to be_empty
+        end
       end
     end
   end
